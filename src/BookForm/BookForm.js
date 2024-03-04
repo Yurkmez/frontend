@@ -1,5 +1,6 @@
 import { useState } from 'react';
-
+import { useDispatch } from 'react-redux';
+import { addBook } from '../redux/books/actionCreators';
 import './BookForm.css';
 
 const BookForm = () => {
@@ -7,6 +8,7 @@ const BookForm = () => {
         title: '',
         author: '',
     });
+    const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
         // чтобы браузер не выполнял действие по умолчанию
@@ -14,7 +16,11 @@ const BookForm = () => {
         e.preventDefault();
 
         if (formDate.title && formDate.author) {
-            console.log(formDate.title, formDate.author);
+            const book = {
+                title: formDate.title,
+                author: formDate.author,
+            };
+            dispatch(addBook(book));
             // очищение полей ввода данных после отправки данных
             setFormDate({ ...formDate, title: '', author: '' });
         }
