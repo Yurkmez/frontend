@@ -22,6 +22,7 @@ const BookForm = () => {
                 title: formDate.title,
                 author: formDate.author,
                 id: uuidv4(),
+                isFavorite: false,
             };
             dispatch(addBook(book));
             // очищение полей ввода данных после отправки данных
@@ -36,6 +37,7 @@ const BookForm = () => {
         const randomBookWithId = {
             ...randomBook,
             id: uuidv4(),
+            isFavorite: false,
         };
         dispatch(addBook(randomBookWithId));
     };
