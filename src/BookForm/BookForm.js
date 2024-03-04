@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import { addBook } from '../redux/books/actionCreators';
+import createBookWithId from '../utils/createBookWithId';
 import bookDate from '../data/books.json';
 import './BookForm.css';
 
@@ -18,12 +18,9 @@ const BookForm = () => {
         e.preventDefault();
 
         if (formDate.title && formDate.author) {
-            const book = {
-                title: formDate.title,
-                author: formDate.author,
-                id: uuidv4(),
-                isFavorite: false,
-            };
+            let title = formDate.title;
+            let author = formDate.author;
+            const book = createBookWithId({ title, author });
             dispatch(addBook(book));
             // очищение полей ввода данных после отправки данных
             setFormDate({ ...formDate, title: '', author: '' });
@@ -32,13 +29,8 @@ const BookForm = () => {
     // Добавление случайно выбранной книги из файла
     const handleAddRandomBook = () => {
         const randomIndex = Math.floor(Math.random() * bookDate.length);
-        console.log(randomIndex);
         const randomBook = bookDate[randomIndex];
-        const randomBookWithId = {
-            ...randomBook,
-            id: uuidv4(),
-            isFavorite: false,
-        };
+        const randomBookWithId = createBookWithId(randomBook);
         dispatch(addBook(randomBookWithId));
     };
     return (
