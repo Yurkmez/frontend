@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { addBook } from '../redux/books/actionCreators';
+import bookDate from '../data/books.json';
 import './BookForm.css';
 
 const BookForm = () => {
@@ -26,6 +27,17 @@ const BookForm = () => {
             // очищение полей ввода данных после отправки данных
             setFormDate({ ...formDate, title: '', author: '' });
         }
+    };
+    // Добавление случайно выбранной книги из файла
+    const handleAddRandomBook = () => {
+        const randomIndex = Math.floor(Math.random() * bookDate.length);
+        console.log(randomIndex);
+        const randomBook = bookDate[randomIndex];
+        const randomBookWithId = {
+            ...randomBook,
+            id: uuidv4(),
+        };
+        dispatch(addBook(randomBookWithId));
     };
     return (
         <div className="app-block book-form">
@@ -54,6 +66,9 @@ const BookForm = () => {
                     />
                 </div>
                 <button type="submit">Add Book</button>
+                <button type="button" onClick={() => handleAddRandomBook()}>
+                    Add Random
+                </button>
             </form>
         </div>
     );
