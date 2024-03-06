@@ -37,6 +37,27 @@ const BookList = () => {
         return matchesTitle && matchesAuthor && matchesFavorite;
     });
 
+    // Ф=ция подсветки текста, введенного в поля фильтра
+    const highlightMatch = (text, filter) => {
+        if (!filter) return text;
+        // регулярное выражение (filter - это та часть строки,
+        // которую мы ищем в тексте, (gi), g - означает "глобально", т..е.
+        // все найденные совпадения, i- не обращая на регистр)
+        // regex - возвращает массив, разделенный по условию split(regex)
+        const regex = new RegExp(`(${filter})`, 'gi');
+        // подсветка текста выполняется за счет map
+        return text.split(regex).map((substring, i) => {
+            if (substring.toLowerCase() === filter.toLowerCase()) {
+                return (
+                    <spain key={i} className="highlight">
+                        {substring}
+                    </spain>
+                );
+            }
+            return substring;
+        });
+    };
+
     return (
         <div className="app-block book-list">
             <h2>Book List</h2>
@@ -47,8 +68,11 @@ const BookList = () => {
                     {filteredBooks.map((book, i) => (
                         <li key={book.id}>
                             <div className="book-info">
-                                {++i}. {book.title} by{' '}
-                                <strong>{book.author}</strong>
+                                {++i}. {highlightMatch(book.title, titleFilter)}{' '}
+                                by{' '}
+                                <strong>
+                                    {highlightMatch(book.author, authorFilter)}
+                                </strong>
                             </div>
                             <div className="book-actions">
                                 <span
