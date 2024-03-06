@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addBook } from '../redux/books/actionCreators';
-import createBookWithId from '../utils/createBookWithId';
-import bookDate from '../data/books.json';
+import { addBook } from '../../redux/books/actionCreators';
+import createBookWithId from '../../utils/createBookWithId';
+import bookDate from '../../data/books.json';
 import './BookForm.css';
 
 const BookForm = () => {

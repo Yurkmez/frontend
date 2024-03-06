@@ -1,7 +1,7 @@
 // npm install react-redux@8.1.2 @reduxjs/toolkit@1.9.5
-import BookList from './BookList/BookList';
-import BookForm from './BookForm/BookForm';
-import Filter from './Filter/Filter';
+import BookList from './components/BookList/BookList';
+import BookForm from './components/BookForm/BookForm';
+import Filter from './components/Filter/Filter';
 
 import './App.css';
 
